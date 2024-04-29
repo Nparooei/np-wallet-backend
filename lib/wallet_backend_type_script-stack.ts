@@ -1,16 +1,35 @@
-import * as cdk from 'aws-cdk-lib';
+import { Stack, StackProps, CfnOutput } from 'aws-cdk-lib';
+import { UserPool, UserPoolClient, CfnIdentityPool } from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { CfnApp } from 'aws-cdk-lib/aws-amplify';
 
-export class WalletBackendTypeScriptStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+
+export class CognitoUserPoolStack extends Stack {
+ constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const userPool = new UserPool(this, 'crypto-wallet-user-pool', {
+      userPoolName: 'crypto-wallet-user-pool',
+      autoVerify: {
+        email: true,
+      },
+      signInAliases: {
+        email: true,
+      },
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'WalletBackendTypeScriptQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
-  }
+    const userPoolClient = new UserPoolClient(this, 'crypto-wallet-user-pool-client', {
+      userPool,
+      authFlows: {
+        userPassword: true,
+      },
+    });
+
+    new CfnOutput(this, 'UserPoolId', { value: userPool.userPoolId });
+    new CfnOutput(this, 'UserPoolClientId', { value: userPoolClient.userPoolClientId });
+
+    const amplifyApp = new CfnApp(this, 'crypto-wallet-auth-amplify-app', {
+      name: 'crypto-wallet-amplify-app',
+    });
+ }
 }
