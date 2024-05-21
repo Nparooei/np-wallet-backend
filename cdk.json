@@ -1,5 +1,6 @@
 {
   "app": "npx ts-node --prefer-ts-exts bin/wallet_backend_type_script.ts",
+  "profile":"aws-cdk-dev",
   "watch": {
     "include": [
       "**"
