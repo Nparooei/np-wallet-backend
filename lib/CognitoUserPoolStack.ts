@@ -1,7 +1,6 @@
 import { Stack, StackProps, CfnOutput } from "aws-cdk-lib";
 import { UserPool, UserPoolClient } from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
-import { CfnApp } from "aws-cdk-lib/aws-amplify";
 
 export class CognitoUserPoolStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -38,13 +37,5 @@ export class CognitoUserPoolStack extends Stack {
       },
     );
 
-    new CfnOutput(this, "UserPoolId", { value: userPool.userPoolId });
-    new CfnOutput(this, "UserPoolClientId", {
-      value: userPoolClient.userPoolClientId,
-    });
-
-    new CfnApp(this, "crypto-wallet-auth-amplify-app", {
-      name: "crypto-wallet-amplify-app",
-    });
   }
 }

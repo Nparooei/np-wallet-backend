@@ -27,5 +27,4 @@ test("Cognito User Pool Created", () => {
 
   template.resourceCountIs("AWS::Cognito::UserPool", 1);
   template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
-  template.resourceCountIs("AWS::Amplify::App", 1);
 });
