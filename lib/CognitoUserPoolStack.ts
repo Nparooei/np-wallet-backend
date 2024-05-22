@@ -43,7 +43,7 @@ export class CognitoUserPoolStack extends Stack {
       value: userPoolClient.userPoolClientId,
     });
 
-    const amplifyApp = new CfnApp(this, "crypto-wallet-auth-amplify-app", {
+    new CfnApp(this, "crypto-wallet-auth-amplify-app", {
       name: "crypto-wallet-amplify-app",
     });
   }
