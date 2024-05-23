@@ -1,4 +1,4 @@
-import { Stack, StackProps, CfnOutput } from "aws-cdk-lib";
+import { Stack, StackProps } from "aws-cdk-lib";
 import { UserPool, UserPoolClient } from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
 
@@ -26,7 +26,7 @@ export class CognitoUserPoolStack extends Stack {
       selfSignUpEnabled: true,
     });
 
-    const userPoolClient = new UserPoolClient(
+    new UserPoolClient(
       this,
       "crypto-wallet-user-pool-client",
       {
@@ -36,6 +36,5 @@ export class CognitoUserPoolStack extends Stack {
         },
       },
     );
-
   }
 }
